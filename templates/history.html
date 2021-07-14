@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>File Server</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-dark  bg-primary">
+            <a class="navbar-brand" href="/list">Главная</a>
+            <a class="navbar-brand" href="/history">История</a>
+            <a class="navbar-brand" href="/logout">Выход</a>
+        </nav>
+        <br>
+        <h1 style="text-align:center">File Server</h1>
+        <br>
+        <table class="table table-hover">
+            <tbody>
+                {{range .List}}
+                <tr>
+                    <td width=40%>{{.File}}</td>
+                    <td width=10%><b>{{.Created}}</b></td>
+                    <td width=10%><b>{{.Operation}}</b></td>
+                    <td width=10%>{{if (eq .Operation "Удален")}}
+
+                        <form action="/api/files/restore" method="POST">
+                            <input type="hidden" name="action" value="remove">
+                            <input type="hidden" name="id" value="{{.ID}}">
+                            <input type="hidden" name="name" value="{{.File}}">
+                            <input type="hidden" name="rev" value="{{.Rev}}">
+                            <button class="btn btn-outline-primary">Восстановить</button>
+                        </form>
+                        {{end}}
+                    </td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+
+
+
+    </div>
+</body>
+
+</html>

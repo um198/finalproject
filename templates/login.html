@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>File Server</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-dark  bg-primary">
+            <a class="navbar-brand" href="/list">Главная</a>
+            <a class="navbar-brand" href="/history">История</a>
+            <a class="navbar-brand" href="/logout">Выход</a>
+        </nav>
+        <br>
+        <h1 style="text-align:center">Login</h1>
+        <br>
+        <form id="register" style="text-align:center" action="/2/login" method="POST">
+            <input id="email" name="email" placeholder="Введите ваш Email"><br>
+
+            <input id="paswword" name="paswword" type="password" placeholder="Введите ваш пароль">
+            <p></p>
+            <button class="btn btn-primary mb-2" type="submit">Войти</button>
+            <p></p>
+            <a href="/signup" class="btn">Создать аккаунт</a>
+        </form>
+
+    </div>
+</body>
+</html>

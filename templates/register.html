@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>File Server</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-dark  bg-primary">
+            <a class="navbar-brand" href="/list">Главная</a>
+            <a class="navbar-brand" href="/history">История</a>
+            <a class="navbar-brand" href="/logout">Выход</a>
+        </nav>
+        <br>
+        <h1 style="text-align:center">Registration</h1>
+        <br>
+        <form id="register" style="text-align:center" action="/register" method="POST">
+            <input id="firstname" name="firstname" placeholder="Введите ваше имя">
+            <p></p>
+            <input id="lastname" name="lastname" placeholder="Введите вашу фамилию">
+            <p></p>
+            <input id="email" name="email" placeholder="Введите ваш Email">
+            <p id="username-err"></p>
+            <input id="p1" name="paswword" type="password" placeholder="Введите ваш пароль">
+            <p></p>
+            <input id="p2" name="paswword2" type="password" placeholder="Повторите ваш пароль">
+            <p id="password-err"></p>
+            <button id="create-account" class="btn btn-primary mb-2" type="submit">Регистрация</button>
+        </form>
+    </div>
+
+
+
+    <script>
+        var formUser = document.querySelector('#register');
+        var userEmail = document.querySelector('#email');
+        var paswword1 = document.querySelector('#p1');
+        var paswword2 = document.querySelector('#p2');
+        var btnSubmit = document.querySelector('#create-account');
+
+        var nameErr = document.querySelector('#username-err');
+        var pErr = document.querySelector('#password-err');
+
+
+        userEmail.addEventListener('input', function () {
+            console.log(userEmail.value);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/chekemail');
+            xhr.send(userEmail.value);
+            xhr.addEventListener('readystatechange', function () {
+                if (xhr.readyState === 4) {
+                    var item = xhr.responseText;
+                    console.log(item == 'true');
+                    console.log(item.length);
+                    if (item === 'true') {
+                        console.log(item);
+                        nameErr.textContent = 'Пользователь существует - Попробуйте другой Email!';
+
+                    } else {
+                        console.log(item);
+                        nameErr.textContent = '';
+                    }
+                }
+            });
+        });
+
+
+        formUser.addEventListener('submit', function (e) {
+            var ok = validatePasswords();
+            if (!ok) {
+                e.preventDefault();
+                return;
+            }
+        });
+
+        function validatePasswords() {
+            pErr.textContent = '';
+            if (paswword1.value === '') {
+                pErr.textContent = 'Введите пароль.';
+                return false;
+            }
+            if (paswword1.value !== paswword2.value) {
+                pErr.textContent = 'Ваши пароли не совпадают. Пожалуйста заново введите пароли.';
+                paswword1.value = '';
+                paswword2.value = '';
+                return false;
+            }
+            return true;
+        };
+    </script>
+
+</body>
+
+</html>

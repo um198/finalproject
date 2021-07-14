@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>File Server</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-dark  bg-primary">
+            <a class="navbar-brand" href="/list">Главная</a>
+            <a class="navbar-brand" href="/history">История</a>
+            <a class="navbar-brand" href="/logout">Выход</a>
+        </nav>
+        <br>
+        <h1 style="text-align:center">Active Email</h1>
+        <br>
+
+        <form id="register" style="text-align:center" action="/activate" method="POST">
+            <p>На Ваш почтовый ящик <b>{{.List}}</b> отправлен код потверждения. Пожалйста введите код.</p>
+			<p>Проверьте папку <b>Спам</b></p>
+
+            <input id="code" name="code" placeholder="Введите ваш код активации"><br>
+
+            <p></p>
+            <button class="btn btn-primary mb-2" type="submit">Активировать</button>
+            <p>Если сервису не удалось отправить код активации то можете посмотреть код выполив запрос в файле <b>/test/some_tests.http</b> </p>
+            <a href="/signup" class="btn">Создать аккаунт</a>
+        </form>
+
+    </div>
+
+
+
+</body>
+
+</html>

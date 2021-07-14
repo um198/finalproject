@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>File Server</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-dark  bg-primary">
+            <a class="navbar-brand" href="/list">Главная</a>
+            <a class="navbar-brand" href="/history">История</a>
+            <a class="navbar-brand" href="/logout">Выход</a>
+        </nav>
+
+        <br>
+        <h1 style="text-align:center">File Server</h1>
+
+        <br><br>
+        <table id="tablename" class="table table-hover">
+            <tbody>
+                {{range .List}}
+                <tr>
+                    <td width=40%>{{ .Name }}</td>
+
+
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+
+
+
+        <p id="output"></p>
+
+
+        <button onclick="dropbox('getmetadata','/1.jpg')" class="btn btn-outline-primary">Get Metadata</button>
+        <button onclick="dropbox('get_thumbnail','/1.jpg')" class="btn btn-outline-primary">Get Metadata</button>
+
+        <footer class=" bg-primary text-center text-lg-start">
+            <div class="text-center text-white p-3">
+                © 2021 Copyright: Alif Academy
+            </div>
+        </footer>
+
+
+        <script>
+            var table = document.getElementById('tablename'),
+                cells = table.getElementsByTagName('tr');
+
+            for (var i = 0, len = cells.length; i < len; i++) {
+                cells[i].onclick = function () {
+                }
+            }
+
+            function dropbox(func, name) {
+                var request = new XMLHttpRequest();
+                function reqReadyStateChange() {
+                    if (request.readyState == 4) {
+                        var status = request.status;
+                        if (status == 200) {
+                            document.getElementById("output").innerHTML = request.responseText;
+                        }
+                    }
+                }
+
+                var body = "func=" + func + "&name=" + name;
+                console.log(body)
+                request.open("GET", "/dropbox?" + body);
+                request.onreadystatechange = reqReadyStateChange;
+                request.send();
+            }
+
+        </script>
+
+</body>
+
+</html>
