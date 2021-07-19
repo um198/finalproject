@@ -237,7 +237,7 @@ func (s *Server) handleFilesList(writer http.ResponseWriter, request *http.Reque
 		}{
 			List: data,
 		}
-		err = runTemplate(writer, "templates/index.html", list)
+		err= runTemplate(writer, "templates/index.html", list)
 		if err != nil {
 			os.Exit(2)
 		}
